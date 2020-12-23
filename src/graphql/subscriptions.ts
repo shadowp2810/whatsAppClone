@@ -164,6 +164,17 @@ export const onCreateChatRoomUser = /* GraphQL */ `
           }
           nextToken
         }
+        messages {
+          items {
+            id
+            createdAt
+            content
+            userID
+            chatRoomID
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -207,6 +218,17 @@ export const onUpdateChatRoomUser = /* GraphQL */ `
             userID
             chatRoomID
             createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        messages {
+          items {
+            id
+            createdAt
+            content
+            userID
+            chatRoomID
             updatedAt
           }
           nextToken
@@ -258,6 +280,17 @@ export const onDeleteChatRoomUser = /* GraphQL */ `
           }
           nextToken
         }
+        messages {
+          items {
+            id
+            createdAt
+            content
+            userID
+            chatRoomID
+            updatedAt
+          }
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -292,6 +325,33 @@ export const onCreateChatRoom = /* GraphQL */ `
             updatedAt
           }
           createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      messages {
+        items {
+          id
+          createdAt
+          content
+          userID
+          chatRoomID
+          user {
+            id
+            name
+            email
+            birthdate
+            phoneNumber
+            imageUri
+            status
+            createdAt
+            updatedAt
+          }
+          chatRoom {
+            id
+            createdAt
+            updatedAt
+          }
           updatedAt
         }
         nextToken
@@ -331,6 +391,33 @@ export const onUpdateChatRoom = /* GraphQL */ `
         }
         nextToken
       }
+      messages {
+        items {
+          id
+          createdAt
+          content
+          userID
+          chatRoomID
+          user {
+            id
+            name
+            email
+            birthdate
+            phoneNumber
+            imageUri
+            status
+            createdAt
+            updatedAt
+          }
+          chatRoom {
+            id
+            createdAt
+            updatedAt
+          }
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -366,7 +453,211 @@ export const onDeleteChatRoom = /* GraphQL */ `
         }
         nextToken
       }
+      messages {
+        items {
+          id
+          createdAt
+          content
+          userID
+          chatRoomID
+          user {
+            id
+            name
+            email
+            birthdate
+            phoneNumber
+            imageUri
+            status
+            createdAt
+            updatedAt
+          }
+          chatRoom {
+            id
+            createdAt
+            updatedAt
+          }
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage {
+    onCreateMessage {
+      id
+      createdAt
+      content
+      userID
+      chatRoomID
+      user {
+        id
+        name
+        email
+        birthdate
+        phoneNumber
+        imageUri
+        status
+        chatRoomUser {
+          items {
+            id
+            userID
+            chatRoomID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      chatRoom {
+        id
+        chatRoomUsers {
+          items {
+            id
+            userID
+            chatRoomID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        messages {
+          items {
+            id
+            createdAt
+            content
+            userID
+            chatRoomID
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      updatedAt
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage {
+    onUpdateMessage {
+      id
+      createdAt
+      content
+      userID
+      chatRoomID
+      user {
+        id
+        name
+        email
+        birthdate
+        phoneNumber
+        imageUri
+        status
+        chatRoomUser {
+          items {
+            id
+            userID
+            chatRoomID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      chatRoom {
+        id
+        chatRoomUsers {
+          items {
+            id
+            userID
+            chatRoomID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        messages {
+          items {
+            id
+            createdAt
+            content
+            userID
+            chatRoomID
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      updatedAt
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage {
+    onDeleteMessage {
+      id
+      createdAt
+      content
+      userID
+      chatRoomID
+      user {
+        id
+        name
+        email
+        birthdate
+        phoneNumber
+        imageUri
+        status
+        chatRoomUser {
+          items {
+            id
+            userID
+            chatRoomID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      chatRoom {
+        id
+        chatRoomUsers {
+          items {
+            id
+            userID
+            chatRoomID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        messages {
+          items {
+            id
+            createdAt
+            content
+            userID
+            chatRoomID
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       updatedAt
     }
   }

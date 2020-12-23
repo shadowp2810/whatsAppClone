@@ -1,8 +1,16 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TextInput, 
         NativeSyntheticEvent, 
         TextInputChangeEventData, } from 'react-native';
+
+import {
+    API, 
+    Auth, 
+    graphqlOperation,
+} from 'aws-amplify';
+
+import { createMessage } from '../../src/graphql/mutations';
 
 import { MaterialCommunityIcons, FontAwesome5, 
             Entypo, Fontisto, MaterialIcons } from "@expo/vector-icons";
@@ -11,16 +19,43 @@ import styles from "./styles";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const InputBox = () => {
+const InputBox = (props) => {
+
+    const { chatRoomID } = props;
 
     const [message, setMessage] = useState('');
+    const [myUserId, setMyUserId] = useState(null);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const userInfo = await Auth.currentAuthenticatedUser();
+            setMyUserId(userInfo.attributes.sub);
+        }
+        fetchUser();
+    }, [])
 
     const onMicrophonePress = () => {
         console.warn('Microphone');
     }
 
-    const onSendPress = () => {
+    const onSendPress = async () => {
         console.warn(`Sending: ${message}`);
+
+        try {
+            await API.graphql(
+                graphqlOperation(
+                    createMessage, {
+                        input: {
+                            content: message,
+                            userID: myUserId,
+                            chatRoomID,
+                        }
+                    }
+                )
+            )
+        } catch(e) {
+            console.log(e);
+        }
         
         setMessage('');
     }
