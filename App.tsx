@@ -62,7 +62,7 @@ function MainApp(props) {
     const fetchUser = async () => {
       // get Authenticated user from Auth
       const userInfo = await Auth.currentAuthenticatedUser( { bypassCache: true}); 
-      console.log(userInfo);
+      //console.log(userInfo);
 
       if (userInfo) {
       // get the user from Backend with the user SUB from Auth
@@ -118,7 +118,7 @@ function MainApp(props) {
 
 
 const AuthScreens = (props) => {
-  console.log('props', props.authState);
+  //console.log('props', props.authState);
   switch (props.authState) {
     case 'signIn':
       return <SignIn {...props} />;
